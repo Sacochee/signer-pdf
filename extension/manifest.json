@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Signer PDF",
+  "version": "1.1.0",
+  "description": "Pose ta signature et des mentions manuscrites sur le PDF ouvert dans Chrome, puis enregistre le document signé. Tout reste sur ton ordinateur.",
+  "minimum_chrome_version": "116",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "Signer ce PDF",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["storage", "unlimitedStorage", "downloads", "contextMenus", "scripting"],
+  "host_permissions": ["<all_urls>"]
+}

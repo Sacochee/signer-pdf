@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Signer PDF</title>
+    <link rel="icon" href="../icons/icon-32.png" />
+    <link rel="stylesheet" href="editor.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img src="../icons/icon-32.png" alt="" width="24" height="24" />
+        <span id="doc-name" class="doc-name">Signer PDF</span>
+      </div>
+      <div class="actions">
+        <label class="btn">
+          Ouvrir un fichier
+          <input id="file-input" type="file" accept="application/pdf,image/png,image/jpeg" hidden />
+        </label>
+        <button id="save-btn" class="btn primary" type="button" disabled title="Ctrl + S">
+          Enregistrer le PDF signé
+        </button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" aria-label="Mes signatures">
+        <h2>Mes signatures</h2>
+        <ul id="sig-list" class="sig-list"></ul>
+        <p class="sig-empty">Aucune signature enregistrée. Ajoute une photo, un scan ou un fichier SVG de ta signature.</p>
+        <label class="btn add">
+          + Ajouter une signature
+          <input id="sig-input" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden />
+        </label>
+        <label class="check">
+          <input id="remove-bg" type="checkbox" checked />
+          Retirer le fond (papier, quadrillage, ombres)
+        </label>
+        <h2 class="section-title">Mentions</h2>
+        <ul id="mention-list" class="mention-list"></ul>
+        <button id="mention-new" class="btn add" type="button">+ Écrire une mention</button>
+        <div class="mention-style">
+          <div id="font-choice" class="font-choice" role="group" aria-label="Écriture"></div>
+          <div id="color-choice" class="color-choice" role="group" aria-label="Couleur de l'encre"></div>
+        </div>
+
+        <div class="help">
+          <p><strong>Poser :</strong> clique sur une signature ou une mention, ou double-clique sur le document pour y mettre ta signature.</p>
+          <p><strong>Ajuster :</strong> fais glisser pour déplacer, tire le coin pour agrandir. Suppr pour retirer. Double-clic sur une mention pour la modifier.</p>
+        </div>
+      </aside>
+
+      <main id="viewer" class="viewer">
+        <section id="empty" class="empty">
+          <div class="drop">
+            <p class="drop-title">Glisse un PDF ici</p>
+            <p>ou</p>
+            <label class="btn primary" for="file-input">Choisir un fichier</label>
+            <div id="empty-message" class="empty-message" role="status"></div>
+          </div>
+        </section>
+        <p id="placement-hint" class="placement-hint" hidden>
+          Clique sur une signature ou une mention à gauche pour la poser sur la page affichée.
+        </p>
+        <div id="pages" class="pages" hidden></div>
+      </main>
+    </div>
+
+    <dialog id="text-dialog" class="text-dialog" aria-labelledby="text-dialog-title">
+      <form method="dialog">
+        <h2 id="text-dialog-title">Écrire une mention</h2>
+        <textarea id="text-input" rows="3" maxlength="300" aria-labelledby="text-dialog-title"></textarea>
+        <p class="dialog-hint">Entrée pour valider, Maj + Entrée pour aller à la ligne. <code>{date}</code> est remplacé par la date du jour.</p>
+        <label id="text-save-row" class="check">
+          <input id="text-save" type="checkbox" />
+          Ajouter à mes mentions
+        </label>
+        <div class="dialog-actions">
+          <button class="btn" value="cancel" formnovalidate>Annuler</button>
+          <button class="btn primary" value="ok">Valider</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="busy" class="busy" hidden role="status"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="editor.js"></script>
+  </body>
+</html>
